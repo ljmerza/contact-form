@@ -1,0 +1,21 @@
+{
+  "name": "contact-form",
+  "version": "1.0.0",
+  "description": "contact form example",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Leonardo Merza",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ljmerza/contact-form.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "nodemailer": "^3.1.1",
+    "request": "^2.72.0"
+  }
+}
