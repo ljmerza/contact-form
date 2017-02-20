@@ -23,15 +23,14 @@ $(document).ready(function() {
 			url	: 'contactForm',
 			data: formData,
 			dataType: 'json',
-			encode: true
 		})
 		// if returned okay then show message
 		.done( function(data) {
-			$message.html( data );
+			$message.html( data.info );
 		})
 		// if returned error then show message
 		.fail( function(data) {
-			$message.html( data );
+			$message.html( data.error );
 		})
 		// always reset recaptcha no matter the response
 		.always( function() {

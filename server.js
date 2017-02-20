@@ -31,7 +31,6 @@ function recaptcha_verify(req, res, next){
 
 	// create google recaptcha data
 	let	recaptcha_data = {
-		remoteip: req.ip,
 		secret: config.recaptcha_secret,
 		response: req.body.recaptcha
 	}
@@ -44,8 +43,15 @@ function recaptcha_verify(req, res, next){
 	}, function (err, resReq, body) {
 		if (err) return next(err);
 
-		// if recaptcha successful go to next middleware
-		return next();
+		body = JSON.parse(body);
+
+		if(body.success) {
+			// if recaptcha successful go to next middleware
+			return next();
+		} else {
+			// else return error
+			res.status(403).json({ error: 'reCAPTCHA did not authenticate.' })
+		}
 	});
 }
 
@@ -75,7 +81,7 @@ function node_mailer(req, res, next) {
 	transporter.sendMail(email_data, function(err, info) {
 		if (err) return next(err);
 
-		return res.json({info: info});
+		return res.json({ info: 'email was sent!'});
 	});	
 }
 
@@ -85,7 +91,7 @@ function node_mailer(req, res, next) {
 * error handler for contact form route
 */
 app.post('/contactForm', function(err, req, res, next) {
-  	return res.status(500).json({ error: err });
+  	return res.status(500).json({ error: 'There was an error sending your email.' });
 });
 
 
